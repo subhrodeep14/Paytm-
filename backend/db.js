@@ -1,6 +1,6 @@
- import mongoose from "mongoose";
+ const mongoose =require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/Paytm");
+mongoose.connect("mongodb+srv://subhrodeep022:zVQyAatfKOdBlQPk@cluster0.sn8ir.mongodb.net/paytm");
 
 const db = mongoose.connection;
 
@@ -11,6 +11,7 @@ db.once("open", function () {
 }); 
 
 const userSchema = new mongoose.Schema({
+    username: String,
     name: String,
     email: String,
     password: String,
@@ -28,14 +29,9 @@ const accountSchema = new mongoose.Schema({
     },
     balance: {
         type: Number,
-        default: 0,
         required: true,
     },
-    accountNumber: Number,
-    ifsc: String,
-    branch: String,
-    bankName: String,
-    transactions: Array,
+   
 });
 
 const Account = mongoose.model("Account", accountSchema);

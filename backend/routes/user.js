@@ -1,9 +1,10 @@
 const express = require('express');
 const zod = require('zod');
-const jwtSecret = require('../config.js');
-const User = require('../db.js');
+const {jwtSecret} = require('../config.js');
+const {User} = require('../db.js');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware.js');
+const {Account} = require('../db.js');
 
 
 const router = express.Router();
@@ -35,6 +36,12 @@ router.post('/signup', async(req, res) => {
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+    });
+
+    await Account.create({
+        userId: user._id,
+        balance: 1+Math.random()*10000
+      
     });
 
 
@@ -75,7 +82,7 @@ const updateBody = zod.object({
     lastName: zod.string().optional(),
 })
 
-router.put("/", authMiddleware, async (req, res) => {
+router.put("/",  async (req, res) => {
     const { success } = updateBody.safeParse(req.body)
     if (!success) {
         res.status(411).json({
@@ -83,7 +90,7 @@ router.put("/", authMiddleware, async (req, res) => {
         })
     }
 
-		await User.updateOne({ _id: req.userId }, req.body);
+	await User.updateOne({ _id: req.userId }, req.body);
 	
     res.json({
         message: "Updated successfully"

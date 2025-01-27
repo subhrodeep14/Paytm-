@@ -1,1 +1,6 @@
-export const jwtSecret="Babi1905";
+
+ 
+ const  jwtSecret="babi2003";
+
+ module.exports = { jwtSecret };
+
