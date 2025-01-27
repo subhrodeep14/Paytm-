@@ -1,6 +1,7 @@
  const mongoose =require("mongoose");
+ const { mongoUrl } = require("./secrets.js");
 
-mongoose.connect("mongodb+srv://subhrodeep022:zVQyAatfKOdBlQPk@cluster0.sn8ir.mongodb.net/paytm");
+mongoose.connect(mongoUrl);
 
 const db = mongoose.connection;
 

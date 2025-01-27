@@ -1,5 +1,5 @@
 const jwt =require('jsonwebtoken');
-const {jwtSecret}=require('./config');
+const {jwtSecret}=require('./secrets.js');
 
 
 const authMiddleware = (req, res, next) => {
