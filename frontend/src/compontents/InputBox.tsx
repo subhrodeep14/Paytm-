@@ -1,11 +1,8 @@
- 
- export function InputBox({labels,placeholder}: {labels: string,placeholder: string}) {
-   return (
-     <div className="flex flex-col justify-center items-center">
-        <div className="text-left text-lg font-semibold">
-            {labels}
-        </div>
-       <input className="border-2 border-gray-400 p-2 rounded-lg" type="text" placeholder={placeholder} />
-     </div>
-   )
- }
+export function InputBox({label, placeholder,onChange}: {label: string, placeholder: string, onChange: (e: any) => void}) {
+    return <div className="mb-2">
+      <div className="text-sm font-medium text-left py-2">
+        {label}
+      </div>
+      <input onChange={onChange} placeholder={placeholder} className="w-full px-2 py-1 border-2 rounded border-slate-700" />
+    </div>
+}
