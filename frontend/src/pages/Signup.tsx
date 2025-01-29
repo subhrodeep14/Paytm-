@@ -5,7 +5,8 @@ import { Heading } from "../compontents/Heading"
 import { InputBox } from "../compontents/InputBox"
 import Subheading from "../compontents/Subheading"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+
 
 
 function Signup() {
@@ -13,6 +14,7 @@ function Signup() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
   return (
     <div className="bg-slate-500 h-screen flex justify-center">
     <div className="flex flex-col justify-center">
@@ -37,10 +39,9 @@ function Signup() {
           
           <Button label="Sign Up" onClick={async() => {
            const response=await axios.post("http://localhost:3000/api/v1/user/signup", {  username, firstName, lastName, password })
-            console.log(username, firstName, lastName, password);
             localStorage.setItem("token", response.data.token);
             if (response.status === 200) {
-              window.location.href = "/dashboard"
+              navigate( "/dashboard")
             }
             
           }} />

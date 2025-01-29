@@ -55,14 +55,25 @@ router.post('/signup', async(req, res) => {
     });
 });
 
+const signinBody = zod.object({
+    username: zod.string().email(),
+    password: zod.string(),
+    firstName: zod.string(),
+    
+
+});
+
+
 router.post('/signin', async(req, res) => {
-    const { success } = signupBody.safeParse(req.body);
+    const { success } = signinBody.safeParse(req.body);
     if (!success) {
         return res.status(411).send('Invalid request body');
     }
 
    const existingUsers=await User.findOne({
-        username: req.body.username
+        username: req.body.username,
+        password: req.body.password,
+        firstName: req.body.firstName
     })
 
     
@@ -97,7 +108,7 @@ router.put("/",  async (req, res) => {
     })
 })
 
-router.get("/bulk", async (req, res) => {
+router.get("/", async (req, res) => {
     const filter = req.query.filter || "";
 
     const users = await User.find({
